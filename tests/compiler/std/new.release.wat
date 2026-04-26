@@ -747,20 +747,13 @@
   (local $1 i32)
   memory.size
   local.tee $1
-  i32.const 0
-  i32.le_s
-  if (result i32)
+  i32.eqz
+  if
    i32.const 1
    local.get $1
    i32.sub
    memory.grow
-   i32.const 0
-   i32.lt_s
-  else
-   i32.const 0
-  end
-  if
-   unreachable
+   drop
   end
   i32.const 34240
   i32.const 0
@@ -815,7 +808,7 @@
   i32.const 34240
   i32.const 35812
   memory.size
-  i64.extend_i32_s
+  i64.extend_i32_u
   i64.const 16
   i64.shl
   call $~lib/rt/tlsf/addMemory
@@ -1203,6 +1196,7 @@
    local.get $0
    i32.const 16
    i32.shl
+   local.tee $2
    i32.const 4
    i32.sub
    i32.ne
@@ -1213,29 +1207,17 @@
    i32.and
    i32.const 16
    i32.shr_u
-   local.tee $2
+   local.tee $3
    local.get $0
-   local.get $2
-   i32.gt_s
+   local.get $3
+   i32.gt_u
    select
    memory.grow
-   i32.const 0
-   i32.lt_s
-   if
-    local.get $2
-    memory.grow
-    i32.const 0
-    i32.lt_s
-    if
-     unreachable
-    end
-   end
+   drop
    local.get $1
-   local.get $0
-   i32.const 16
-   i32.shl
+   local.get $2
    memory.size
-   i64.extend_i32_s
+   i64.extend_i32_u
    i64.const 16
    i64.shl
    call $~lib/rt/tlsf/addMemory

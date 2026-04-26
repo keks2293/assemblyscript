@@ -840,20 +840,13 @@
       if
        memory.size
        local.tee $0
-       i32.const 0
-       i32.le_s
-       if (result i32)
+       i32.eqz
+       if
         i32.const 1
         local.get $0
         i32.sub
         memory.grow
-        i32.const 0
-        i32.lt_s
-       else
-        i32.const 0
-       end
-       if
-        unreachable
+        drop
        end
        i32.const 34528
        i32.const 0
@@ -906,7 +899,7 @@
         end
        end
        memory.size
-       i64.extend_i32_s
+       i64.extend_i32_u
        i64.const 16
        i64.shl
        local.tee $2

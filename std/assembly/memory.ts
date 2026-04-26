@@ -7,12 +7,12 @@ export namespace memory {
   /** Gets the size of the memory in pages. */
   // @ts-ignore: decorator
   @builtin
-  export declare function size(): i32;
+  export declare function size(): usize;
 
   /** Grows the memory by the given size in pages and returns the previous size in pages. */
   // @ts-ignore: decorator
   @unsafe @builtin
-  export declare function grow(pages: i32): i32;
+  export declare function grow(pages: usize): usize;
 
   /** Fills a section in memory with the specified byte value. */
   // @ts-ignore: decorator

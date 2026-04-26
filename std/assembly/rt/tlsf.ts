@@ -439,7 +439,7 @@ function growMemory(root: Root, size: usize): void {
   // to merge with the tail block, that's one time, otherwise it's two times.
   let pagesBefore = memory.size();
   size += BLOCK_OVERHEAD << usize((<usize>pagesBefore << 16) - BLOCK_OVERHEAD != changetype<usize>(GETTAIL(root)));
-  let pagesNeeded = <i32>(((size + 0xffff) & ~0xffff) >>> 16);
+  let pagesNeeded = (((size + 0xffff) & ~0xffff) >>> 16);
   let pagesWanted = max(pagesBefore, pagesNeeded); // double memory
   if (memory.grow(pagesWanted) < 0) {
     if (memory.grow(pagesNeeded) < 0) unreachable();
@@ -467,7 +467,7 @@ function initialize(): void {
   if (isDefined(ASC_RTRACE)) oninit(__heap_base);
   let rootOffset = (__heap_base + AL_MASK) & ~AL_MASK;
   let pagesBefore = memory.size();
-  let pagesNeeded = <i32>((((rootOffset + ROOT_SIZE) + 0xffff) & ~0xffff) >>> 16);
+  let pagesNeeded = (((rootOffset + ROOT_SIZE) + 0xffff) & ~0xffff) >>> 16;
   if (pagesNeeded > pagesBefore && memory.grow(pagesNeeded - pagesBefore) < 0) unreachable();
   let root = changetype<Root>(rootOffset);
   root.flMap = 0;

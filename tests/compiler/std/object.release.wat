@@ -1,7 +1,7 @@
 (module
- (type $0 (func (param i32 i32 i32 i32)))
- (type $1 (func (param i32 i32) (result i32)))
- (type $2 (func))
+ (type $0 (func))
+ (type $1 (func (param i32 i32 i32 i32)))
+ (type $2 (func (param i32 i32) (result i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (memory $0 1)
  (data $0 (i32.const 1036) ",")
@@ -141,7 +141,7 @@
   local.get $3
   i32.eqz
  )
- (func $~start
+ (func $start:std/object
   (local $0 i32)
   (local $1 i32)
   i32.const 1104
@@ -237,20 +237,10 @@
    local.tee $0
    local.get $0
    local.get $1
-   i32.lt_s
+   i32.lt_u
    select
    memory.grow
-   i32.const 0
-   i32.lt_s
-   if
-    local.get $0
-    memory.grow
-    i32.const 0
-    i32.lt_s
-    if
-     unreachable
-    end
-   end
+   drop
   end
   i32.const 1340
   i32.const 28
@@ -290,20 +280,10 @@
    local.tee $0
    local.get $0
    local.get $1
-   i32.lt_s
+   i32.lt_u
    select
    memory.grow
-   i32.const 0
-   i32.lt_s
-   if
-    local.get $0
-    memory.grow
-    i32.const 0
-    i32.lt_s
-    if
-     unreachable
-    end
-   end
+   drop
   end
   i32.const 1372
   i32.const 28
@@ -356,5 +336,8 @@
    call $~lib/builtins/abort
    unreachable
   end
+ )
+ (func $~start
+  call $start:std/object
  )
 )

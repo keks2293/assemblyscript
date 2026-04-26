@@ -946,6 +946,7 @@ export declare function _free(ptr: usize): void;
 export declare function __i32_store8(ptr: usize, value: number): void;
 export declare function __i32_store16(ptr: usize, value: number): void;
 export declare function __i32_store(ptr: usize, value: number): void;
+export declare function __i64_store(ptr: usize, valueLow: number, valueHigh: number): void;
 export declare function __f32_store(ptr: usize, value: number): void;
 export declare function __f64_store(ptr: usize, value: number): void;
 export declare function __i32_load8_s(ptr: usize): i8;

@@ -3300,29 +3300,29 @@ builtinFunctions.set(BuiltinNames.unreachable, builtin_unreachable);
 
 // === Memory =================================================================================
 
-// memory.size() -> i32
+// memory.size() -> usize
 function builtin_memory_size(ctx: BuiltinFunctionContext): ExpressionRef {
   let compiler = ctx.compiler;
   let module = compiler.module;
-  compiler.currentType = Type.i32;
+  compiler.currentType = compiler.options.usizeType;
   if (
     checkTypeAbsent(ctx) |
     checkArgsRequired(ctx, 0)
   ) return module.unreachable();
-  return module.memory_size();
+  return module.memory_size(CommonNames.DefaultMemory, compiler.options.isWasm64);
 }
 builtinFunctions.set(BuiltinNames.memory_size, builtin_memory_size);
 
-// memory.grow(pages: i32) -> i32
+// memory.grow(pages: usize) -> usize
 function builtin_memory_grow(ctx: BuiltinFunctionContext): ExpressionRef {
   let compiler = ctx.compiler;
   let module = compiler.module;
-  compiler.currentType = Type.i32;
+  compiler.currentType = compiler.options.usizeType;
   if (
     checkTypeAbsent(ctx) |
     checkArgsRequired(ctx, 1)
   ) return module.unreachable();
-  return module.memory_grow(compiler.compileExpression(ctx.operands[0], Type.i32, Constraints.ConvImplicit));
+  return module.memory_grow(compiler.compileExpression(ctx.operands[0], compiler.options.usizeType, Constraints.ConvImplicit), CommonNames.DefaultMemory, compiler.options.isWasm64);
 }
 builtinFunctions.set(BuiltinNames.memory_grow, builtin_memory_grow);
 

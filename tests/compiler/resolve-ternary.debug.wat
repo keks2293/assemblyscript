@@ -1317,14 +1317,14 @@
   local.set $pagesNeeded
   local.get $pagesNeeded
   local.get $pagesBefore
-  i32.gt_s
+  i32.gt_u
   if (result i32)
    local.get $pagesNeeded
    local.get $pagesBefore
    i32.sub
    memory.grow
    i32.const 0
-   i32.lt_s
+   i32.lt_u
   else
    i32.const 0
   end
@@ -1412,7 +1412,7 @@
   local.get $root
   local.get $memStart
   memory.size
-  i64.extend_i32_s
+  i64.extend_i32_u
   i64.const 16
   i64.shl
   call $~lib/rt/tlsf/addMemory
@@ -2062,18 +2062,18 @@
   local.tee $6
   local.get $5
   local.get $6
-  i32.gt_s
+  i32.gt_u
   select
   local.set $pagesWanted
   local.get $pagesWanted
   memory.grow
   i32.const 0
-  i32.lt_s
+  i32.lt_u
   if
    local.get $pagesNeeded
    memory.grow
    i32.const 0
-   i32.lt_s
+   i32.lt_u
    if
     unreachable
    end
@@ -2085,7 +2085,7 @@
   i32.const 16
   i32.shl
   local.get $pagesAfter
-  i64.extend_i32_s
+  i64.extend_i32_u
   i64.const 16
   i64.shl
   call $~lib/rt/tlsf/addMemory

@@ -91,20 +91,10 @@
    local.tee $7
    local.get $6
    local.get $7
-   i32.gt_s
+   i32.gt_u
    select
    memory.grow
-   i32.const 0
-   i32.lt_s
-   if
-    local.get $7
-    memory.grow
-    i32.const 0
-    i32.lt_s
-    if
-     unreachable
-    end
-   end
+   drop
   end
   local.get $5
   global.set $~lib/rt/stub/offset

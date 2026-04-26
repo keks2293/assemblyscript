@@ -3562,15 +3562,19 @@ function allocU32Array(u32s: u32[] | null): usize {
 
 export function allocPtrArray(ptrs: usize[] | null): usize {
   if (!ptrs) return 0;
-  // TODO: WASM64
-  assert(ASC_TARGET != Target.Wasm64);
   let len = ptrs.length;
-  let ptr = binaryen._malloc(len << 2);
+  let sizeType = ASC_TARGET == Target.Wasm64 ? TypeRef.I64 : TypeRef.I32;
+  let stride = sizeType == TypeRef.I64 ? 8 : 4;
+  let ptr = binaryen._malloc(len * stride);
   let idx = ptr;
   for (let i = 0, k = len; i < k; ++i) {
     let val = unchecked(ptrs[i]);
-    binaryen.__i32_store(idx, <i32>val);
-    idx += 4;
+    if (sizeType == TypeRef.I64) {
+      binaryen.__i64_store(idx, val & 0xffffffff, val >>> 32);
+    } else {
+      binaryen.__i32_store(idx, <i32>val);
+    }
+    idx += stride;
   }
   return ptr;
 }

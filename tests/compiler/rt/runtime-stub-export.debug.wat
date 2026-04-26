@@ -64,18 +64,18 @@
    local.tee $5
    local.get $4
    local.get $5
-   i32.gt_s
+   i32.gt_u
    select
    local.set $pagesWanted
    local.get $pagesWanted
    memory.grow
    i32.const 0
-   i32.lt_s
+   i32.lt_u
    if
     local.get $pagesNeeded
     memory.grow
     i32.const 0
-    i32.lt_s
+    i32.lt_u
     if
      unreachable
     end

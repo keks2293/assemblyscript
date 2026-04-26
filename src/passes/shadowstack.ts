@@ -284,7 +284,7 @@ export class ShadowStackPass extends Pass {
       stmts.push(
         module.memory_fill(
           module.global_get(BuiltinNames.stack_pointer, this.ptrType),
-          module.i32(0), // TODO: Wasm64 also i32?
+          module.i32(0),
           this.ptrConst(frameSize)
         )
       );
